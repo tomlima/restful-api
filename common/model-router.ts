@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose'
 import { NotFoundError } from "restify-errors";
 
 export abstract class ModelRouter<D extends mongoose.Document> extends Router{
+
     constructor(protected model: mongoose.Model<D>){
         super()
     }
@@ -16,8 +17,13 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router{
     } 
 
     findAll =  async (req,resp,next) => { 
+        let page  = parseInt(req.query._page || 1)
+        let pageSize = parseInt(req.query._pageSize || 5)
+        page = page > 0 ? page :  1
+        pageSize = pageSize > 0 ? pageSize : 5
+        const skip = (page - 1) * pageSize
         try{
-            const users = await this.model.find()
+            const users = await this.model.find().limit(pageSize).skip(skip)
             resp.json(users)
             return next()
         }catch(error){
