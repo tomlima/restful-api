@@ -50,4 +50,10 @@ export class Server {
             throw error;
         }
     }
+
+    shutdown(){
+        return mongoose.disconnect().then(()=>{
+            this.application.close()
+        })
+    }
 }
