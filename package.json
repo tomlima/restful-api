@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "serve": "nodemon dist/main.js",
-    "test": "jest",
+    "test": "ts-node jest.startup.ts",
     "debug": "nodemon --inspect-brk=localhost:3001 dist/main.js"
   },
   "keywords": [],
@@ -28,6 +28,8 @@
     "@types/bcrypt": "^5.0.2",
     "@types/mongoose": "^5.11.97",
     "@types/restify": "*",
-    "nodemon": "^3.1.0"
+    "jest-cli": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2"
   }
 }

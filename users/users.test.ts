@@ -1,19 +1,5 @@
 import 'jest'
 import * as request from 'supertest'
-import {Server} from '../server/server'
-import { enviroment } from '../common/enviroment'
-import {usersRouter} from './users.router'
-import {User} from './users.model'
-
-let server: Server
-beforeAll(()=>{
-    enviroment.db.url = process.env.DB_URL || 'mongodb://localhost/api-test-db'
-    enviroment.server.port = process.env.SERVER_PORT || 3001
-    server = new Server()
-    return server.bootstrap([usersRouter])
-    .then(() => User.deleteMany({}).exec())
-    .catch(console.error)
-})
 
 test('Get /users', async ()=>{
     try{
@@ -60,6 +46,3 @@ test('Update /users/:id', async ()=>{
     expect(updateResponse.body._id).toBeDefined()
 })
 
-afterAll(()=>{
-    return server.shutdown()
-})
