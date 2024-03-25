@@ -4,7 +4,12 @@ import * as bcrypt from 'bcrypt'
 export interface User extends mongoose.Document {
     name: string,
     email: string,
-    password: string
+    password: string,
+    matches?(password:string): boolean
+}
+
+export interface UserModel extends mongoose.Model<User>{
+    findByEmail(email:string, projection?:string): Promise<User>
 }
 
 const userSchema = new mongoose.Schema({
@@ -23,6 +28,14 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 })
+
+userSchema.statics.findByEmail = function(email: string, projection: string){
+    return this.findOne({email}, projection )
+}
+
+userSchema.methods.matches = function(password: string): boolean{
+    return bcrypt.compareSync(password, this.password)
+}
 
 userSchema.pre('save', async function (next){
     const user: User =  this
@@ -44,4 +57,4 @@ userSchema.pre('findOneAndUpdate', async function (next){
    // To do
 })
 
-export const User = mongoose.model<User>('User', userSchema)
+export const User = mongoose.model<User, UserModel>('User', userSchema)
