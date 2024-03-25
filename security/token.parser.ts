@@ -29,7 +29,7 @@ function applyBearer(req:restify.Request, next): (error,decoded) => void {
         if(decoded){
             const user = await User.findByEmail(decoded.sub)
             if(user){
-                req.authenticated = user
+                (<any>req).authenticated = user
             }
             next()
         }else{

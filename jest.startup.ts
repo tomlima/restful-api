@@ -12,6 +12,14 @@ const beforeAllTests = ()=>{
     server = new Server()
     return server.bootstrap([usersRouter])
         .then(() => User.deleteMany({}).exec())
+        .then( async ()=>{ 
+            let admin = new User()
+            admin.name = 'admin'
+            admin.email = 'admin@email.com'
+            admin.password = '123456'
+            admin.profiles = ['admin','user']
+            return await admin.save()
+        })
         .catch(console.error)
 }
 
