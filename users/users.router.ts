@@ -2,6 +2,7 @@ import { Server } from 'restify'
 import {ModelRouter} from '../common/model-router'
 import {User} from './users.model'
 import { authenticate } from '../security/auth.handler'
+import { authorize } from '../security/authz.handler'
 
 class UsersRouter extends ModelRouter<User> {
   constructor(){
@@ -24,7 +25,7 @@ class UsersRouter extends ModelRouter<User> {
   }
 
   applyRoutes(application: Server) {
-      application.get('/users', this.findAll)
+      application.get('/users', [authorize("admin"),this.findAll])
       application.get("/users/:id", [this.validateId,this.findById])
       application.post("/users", this.save)
       application.put("/users/:id", [this.validateId,this.update])
