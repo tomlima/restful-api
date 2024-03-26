@@ -4,5 +4,9 @@ export const enviroment = {
     security: {
         apiSecret: process.env.API_SECRET || 'api-secret',
         testJwt: process.env.JWT_TESTS || 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE1MTYyMzkwMjJ9.e0xPCF44a9Yf_ch3AVjQsceZwoLSMf01rjronJzN-Ks'
+    },
+    log: {
+        level: process.env.LOG_LEVEL || 'debug',
+        name: 'restful-api'
     }
 }

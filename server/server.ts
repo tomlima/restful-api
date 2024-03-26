@@ -2,6 +2,7 @@ import * as restify from 'restify'
 import * as mongoose from 'mongoose'
 
 import { enviroment } from '../common/enviroment'
+import { logger } from '../common/logger'
 import {Router} from '../common/router'
 import { handleError } from './error.handler'
 
@@ -21,9 +22,15 @@ export class Server {
             try{
                 this.application =  restify.createServer({
                     name: "restful-api",
-                    version: "1.0.0"
+                    version: "1.0.0",
+                    log: logger
                 })
                 
+                this.application.pre(restify.plugins.requestLogger({
+                    log:logger
+                }))
+
+
                 this.application.use(restify.plugins.queryParser())
                 this.application.use(restify.plugins.bodyParser())
                 this.application.use(tokenParser)
