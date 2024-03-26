@@ -1,11 +1,9 @@
 {
-    "compilerOptions": {
-        "outDir": "dist",
-        "target": "ES2015",
-        "module": "CommonJS",
-        "sourceMap": true
-    },
-    "exclude": [
-        "**/*.test.ts"
-    ]
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES2015",
+    "module": "CommonJS",
+    "sourceMap": true
+  },
+  "exclude": ["**/*.test.ts"]
 }

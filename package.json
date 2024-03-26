@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "nodemon dist/main.js",
     "test": "ts-node jest.startup.ts",
-    "debug": "nodemon --inspect-brk=localhost:3001 dist/main.js"
+    "debug": "nodemon --inspect-brk=localhost:3001 dist/main.js",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "@types/restify": "*",
     "jest-cli": "^29.7.0",
     "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
     "ts-node": "^10.9.2"
   }
 }
